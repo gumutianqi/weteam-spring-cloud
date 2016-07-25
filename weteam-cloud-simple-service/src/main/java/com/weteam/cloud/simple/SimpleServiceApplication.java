@@ -16,9 +16,15 @@
  */
 package com.weteam.cloud.simple;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+
+import javax.sql.DataSource;
 
 @SpringBootApplication
 public class SimpleServiceApplication {
@@ -29,5 +35,26 @@ public class SimpleServiceApplication {
         app.run(args);
     }
 
+
+    @Bean(name = "datasource")
+    public DataSource getDataSource() {
+        System.out.println("-------------------- primaryDataSource init ---------------------");
+        return DataSourceBuilder.create().url("jdbc:mysql://127.0.0.1/weteam_spring_cloud").username("root").password("root").build();
+//        System.out.println("========== dataSourceProperties:" + dataSourceProperties.getUrl() + "=========");
+//
+//        return DataSourceBuilder.create()
+//                .url(dataSourceProperties.getUrl())
+//                .username(dataSourceProperties.getUsername())
+//                .password(dataSourceProperties.getPassword())
+//                .build();
+    }
+
+
+    @Bean(name = "txManager")
+    public DataSourceTransactionManager getDataSourceTransactionManager(@Qualifier("datasource") DataSource datasource) {
+        DataSourceTransactionManager dsm = new DataSourceTransactionManager();
+        dsm.setDataSource(datasource);
+        return dsm;
+    }
 }
 
