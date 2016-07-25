@@ -35,7 +35,6 @@ public class SimpleServiceApplication {
         app.run(args);
     }
 
-
     @Bean(name = "datasource")
     public DataSource getDataSource() {
         System.out.println("-------------------- primaryDataSource init ---------------------");

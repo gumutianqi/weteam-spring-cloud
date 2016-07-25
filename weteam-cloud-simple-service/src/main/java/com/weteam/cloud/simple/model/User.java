@@ -18,12 +18,10 @@ package com.weteam.cloud.simple.model;
 
 
 import lombok.Data;
-import org.beetl.sql.core.annotatoin.Table;
 
 import java.util.Date;
 
 @Data
-@Table(name = "user")
 public class User {
     private Long id;
     private Integer age;

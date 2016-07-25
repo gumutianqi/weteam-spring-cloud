@@ -19,9 +19,11 @@ package com.weteam.cloud.simple.dao;
 import com.weteam.cloud.simple.model.User;
 import org.beetl.sql.core.annotatoin.Param;
 import org.beetl.sql.core.mapper.BaseMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public interface UserDao extends BaseMapper<User> {
 
     //使用"user.queryUser"语句, 传入年龄age
