@@ -16,24 +16,15 @@
  */
 package com.weteam.cloud.simple.domain;
 
-import com.weteam.cloud.simple.dao.UserDao;
 import com.weteam.cloud.simple.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
-@Transactional
-public class UserService {
-    /**
-     * 注入Dao对象
-     */
-    @Autowired
-    private UserDao userDao;
+public interface UserService {
 
-    public List<User> findAllUser() {
-        return userDao.all();
-    }
+    long save(User user);
+
+    long count();
+
+    List<User> findAll();
 }

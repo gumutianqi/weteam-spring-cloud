@@ -16,23 +16,22 @@
  */
 package com.weteam.cloud.simple.controller;
 
-import com.weteam.cloud.simple.dao.UserDao;
 import com.weteam.cloud.simple.domain.UserService;
 import com.weteam.cloud.simple.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 public class UserController {
-    @Autowired
-    UserService userService;
 
     @Autowired
-    UserDao userDao;
+    UserService userService;
 
     /**
      * 创建一个新用户
@@ -40,6 +39,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/user", method = RequestMethod.PUT)
+    @ResponseBody
     public Long createUser() {
         User user = new User();
         user.setUserName("larrykoo");
@@ -47,7 +47,7 @@ public class UserController {
         user.setAge(27);
         user.setRoleId(1L);
 
-        return userDao.insertReturnKey(user).getLong();
+        return userService.save(user);
     }
 
     /**
@@ -57,7 +57,7 @@ public class UserController {
      */
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public List<User> showUser() {
-        List<User> users = userService.findAllUser();
+        List<User> users = userService.findAll();
         return users;
     }
 
@@ -67,8 +67,8 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/user_count", method = RequestMethod.GET)
-    public Long userCount() {
-        Long count = userDao.getCount();
+    public long userCount() {
+        long count = userService.count();
         return count;
     }
 

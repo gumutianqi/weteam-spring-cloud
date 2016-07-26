@@ -18,10 +18,27 @@ package com.weteam.cloud.simple.conf;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 @Data
-@ConfigurationProperties(prefix = "beetlsql")
+@Component
+@ConfigurationProperties(prefix = BeetlSqlProperties.DS, ignoreUnknownFields = false)
 public class BeetlSqlProperties {
+
+    //对应配置文件里的配置键
+    public final static String DS = "mysqldb.datasource";
+    private String driverClassName = "com.mysql.jdbc.Driver";
+
+    private String url;
+    private String username;
+    private String password;
+    private int maxActive = 100;
+    private int maxIdle = 8;
+    private int minIdle = 8;
+    private int initialSize = 10;
+    private String validationQuery;
+    private boolean testOnBorrow = false;
+    private boolean testOnReturn = false;
 
     /**
      * 哪些Dao类可以自动注入,DAO接口所在包名
